@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const truePositives = require('./cases/true-positives.json');
-const trueNegative = require('./cases/true-negatives.json');
+const truePositives = require('./tensor/tensor-true-positives.json');
+const trueNegative = require('./tensor/tensor-true-negatives.json');
 
 const csvFileRows = ['commenttext,spam'];
 
