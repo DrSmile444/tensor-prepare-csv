@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const truePositives = require('./tensor/tensor-true-positives.json');
-const trueNegative = require('./tensor/tensor-true-negatives.json');
+const truePositives = require('./2-tensor/tensor-true-positives.json');
+const trueNegative = require('./2-tensor/tensor-true-negatives.json');
 
 const csvFileRows = ['commenttext,spam'];
 
@@ -36,5 +36,5 @@ const trueNegativeRows = trueNegative.map(processDatasetCase).map((item) => `${i
 const wordsCount = [...truePositivesRows, ...trueNegativeRows].map((word) => word.split(' ').length).sort((a, b) => b - a);
 const words = [...csvFileRows, ...shuffle([...truePositivesRows, ...trueNegativeRows])]
 
-fs.writeFileSync('./temp/tensor-csv-dataset.stats.txt', wordsCount.join('\n'));
-fs.writeFileSync('./temp/tensor-csv-dataset.csv', words.join('\n'));
+fs.writeFileSync('./1-3-temp/tensor-csv-dataset.stats.txt', wordsCount.join('\n'));
+fs.writeFileSync('./1-3-temp/tensor-csv-dataset.csv', words.join('\n'));

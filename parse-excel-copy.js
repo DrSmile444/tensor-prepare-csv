@@ -1,10 +1,10 @@
 /**
- * It parses ./temp/parse.txt file.
+ * It parses ./1-3-temp/parse.txt file.
  * You can pass there text copied from Excel and get JSON words
  * */
 const fs = require('fs');
 
-const casesPaths = ['./temp/true-negatives.txt', './temp/true-positives.txt'];
+const casesPaths = ['./1-3-temp/true-negatives.txt', './1-3-temp/true-positives.txt'];
 
 casesPaths.forEach((path) => {
   const cases = fs.readFileSync(path).toString();
@@ -17,6 +17,6 @@ casesPaths.forEach((path) => {
     .map((row) => row.split('\t'))
     .flat();
 
-  fs.writeFileSync(path.replace('temp', 'cases').replace('txt', 'json'), JSON.stringify(fileWords, null, 2));
+  fs.writeFileSync(path.replace('1-3-temp', '1-cases').replace('txt', 'json'), JSON.stringify(fileWords, null, 2));
 
 })
