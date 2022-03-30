@@ -18,16 +18,22 @@ const normalizeDocx = (string) => {
     .filter(Boolean);
 }
 
-extractText('./2-translated/true-negatives.docx').then((data) => {
-  const trueNegativesUkrainian = normalizeDocx(data);
-  const newTrueNegatives = [...new Set([...trueNegatives, ...trueNegativesUkrainian])];
+(async () => {
+  const negatives1 = await extractText('./2-translated/true-negatives.docx');
+  const positives1 = await extractText('./2-translated/true-positives.docx');
+  const negatives2 = (await extractText('./2-translated/true-negatives (1).docx').catch(console.error)) || '';
+  const positives2 = (await extractText('./2-translated/true-positives (1).docx').catch(console.error)) || '';
 
-  writeJson('./2-tensor/2-tensor-true-negatives.json', newTrueNegatives);
-})
+  console.log(positives2);
 
-extractText('./2-translated/true-positives.docx').then((data) => {
-  const truePositivesUkrainian = normalizeDocx(data);
-  const newTruePositives = [...new Set([...truePositives, ...truePositivesUkrainian])];
+  const trueNegativesUkrainian = normalizeDocx(negatives1);
+  const truePositivesUkrainian = normalizeDocx(positives1);
+  const trueNegativesRussian = normalizeDocx(negatives2);
+  const truePositivesRussian = normalizeDocx(positives2);
 
-  writeJson('./2-tensor/2-tensor-true-positives.json', newTruePositives);
-})
+  const newTrueNegatives = [...new Set([...trueNegatives, ...trueNegativesUkrainian, ...trueNegativesRussian])];
+  const newTruePositives = [...new Set([...truePositives, ...truePositivesUkrainian, ...truePositivesRussian])];
+
+  writeJson('./2-tensor/tensor-true-negatives.json', newTrueNegatives);
+  writeJson('./2-tensor/tensor-true-positives.json', newTruePositives);
+})();
