@@ -24,8 +24,6 @@ const normalizeDocx = (string) => {
   const negatives2 = (await extractText('./2-translated/true-negatives (1).docx').catch(console.error)) || '';
   const positives2 = (await extractText('./2-translated/true-positives (1).docx').catch(console.error)) || '';
 
-  console.log(positives2);
-
   const trueNegativesUkrainian = normalizeDocx(negatives1);
   const truePositivesUkrainian = normalizeDocx(positives1);
   const trueNegativesRussian = normalizeDocx(negatives2);

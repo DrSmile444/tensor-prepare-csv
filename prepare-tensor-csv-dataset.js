@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const { optimizeText, removeMention, removeUrl } = require('ukrainian-ml-optimizer');
+const { optimizeText } = require('ukrainian-ml-optimizer');
 
 const truePositives = require('./2-tensor/tensor-true-positives.json');
 const trueNegative = require('./2-tensor/tensor-true-negatives.json');
@@ -25,8 +25,8 @@ function shuffle(array) {
   return array;
 }
 
-const truePositivesRows = truePositives.map(removeUrl).map(removeMention).map(optimizeText).map((item) => `${item},true`);
-const trueNegativeRows = trueNegative.map(removeUrl).map(removeMention).map(optimizeText).map((item) => `${item},false`);
+const truePositivesRows = truePositives.map(optimizeText).map((item) => `${item},true`);
+const trueNegativeRows = trueNegative.map(optimizeText).map((item) => `${item},false`);
 
 const wordsCount = [...truePositivesRows, ...trueNegativeRows].map((word) => word.split(' ').length).sort((a, b) => b - a);
 const words = [...csvFileRows, ...shuffle([...truePositivesRows, ...trueNegativeRows])]
