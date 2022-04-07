@@ -7,7 +7,7 @@
     "1-step": "sh ./1-prepare-cases-for-translate.sh",
     "2-step": "sh ./2-prepare-cases-for-tensor.sh",
     "3-step": "sh ./3-prepare-vocab.sh",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,8 +21,14 @@
   },
   "homepage": "https://github.com/DrSmile444/tensor-prepare-csv#readme",
   "dependencies": {
+    "@tensorflow/tfjs": "^3.15.0",
+    "@tensorflow/tfjs-node": "^3.15.0",
+    "@types/papaparse": "^5.3.2",
     "html-to-docx": "^1.3.2",
+    "jest": "^27.5.1",
     "office-text-extractor": "^1.5.0",
-    "ukrainian-ml-optimizer": "github:DrSmile444/ukrainian-ml-optimizer"
+    "papaparse": "^5.3.2",
+    "puppeteer": "^13.5.2",
+    "ukrainian-ml-optimizer": "file:../ukrainian-ml-optimizer"
   }
 }
