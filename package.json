@@ -4,7 +4,7 @@
   "description": "",
   "main": "create-docx.js",
   "scripts": {
-    "1-step": "sh ./1-prepare-cases-for-translate.sh",
+    "1-step": "sh ./1-2-prepare-cases-for-tensor.sh",
     "2-step": "sh ./2-prepare-cases-for-tensor.sh",
     "3-step": "sh ./3-prepare-vocab.sh",
     "test": "jest"

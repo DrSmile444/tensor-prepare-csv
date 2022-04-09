@@ -107,7 +107,7 @@ const runDebugChrome = () => {
 
   const browser = await puppeteer.connect({
     browserWSEndpoint: wsChromeEndpointUrl,
-    slowMo: 50,
+    slowMo: 10,
   });
 
   const page = await browser.newPage();

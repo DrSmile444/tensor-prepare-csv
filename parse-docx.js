@@ -19,15 +19,15 @@ const normalizeDocx = (string) => {
 }
 
 (async () => {
-  const negatives1 = await extractText('./2-translated/true-negatives.docx');
-  const positives1 = await extractText('./2-translated/true-positives.docx');
-  const negatives2 = (await extractText('./2-translated/true-negatives (1).docx').catch(console.error)) || '';
-  const positives2 = (await extractText('./2-translated/true-positives (1).docx').catch(console.error)) || '';
+  const uaNegatives = await extractText('./2-translated/true-negatives.ua.docx');
+  const uaPositives = await extractText('./2-translated/true-positives.ua.docx');
+  const ruNegatives = await extractText('./2-translated/true-negatives.ru.docx');
+  const ruPositives = await extractText('./2-translated/true-positives.ru.docx');
 
-  const trueNegativesUkrainian = normalizeDocx(negatives1);
-  const truePositivesUkrainian = normalizeDocx(positives1);
-  const trueNegativesRussian = normalizeDocx(negatives2);
-  const truePositivesRussian = normalizeDocx(positives2);
+  const trueNegativesUkrainian = normalizeDocx(uaNegatives);
+  const truePositivesUkrainian = normalizeDocx(uaPositives);
+  const trueNegativesRussian = normalizeDocx(ruNegatives);
+  const truePositivesRussian = normalizeDocx(ruPositives);
 
   const newTrueNegatives = [...new Set([...trueNegatives, ...trueNegativesUkrainian, ...trueNegativesRussian])];
   const newTruePositives = [...new Set([...truePositives, ...truePositivesUkrainian, ...truePositivesRussian])];
