@@ -12,7 +12,7 @@ const file = Papa.parse(parseCsv, {
   skipEmptyLines: true,
 });
 
-const spamRate = 0.90;
+const spamRate = 0.85;
 
 /**
  * @type {TensorService}
