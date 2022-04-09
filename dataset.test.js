@@ -12,7 +12,7 @@ const file = Papa.parse(parseCsv, {
   skipEmptyLines: true,
 });
 
-const spamRate = 0.85;
+const spamRate = 0.80;
 
 /**
  * @type {TensorService}
@@ -53,12 +53,12 @@ describe('Dataset test', () => {
   it('should have decent positive rate', async () => {
     const positivesRate = getPositiveRate(results);
 
-    expect(positivesRate).toBeGreaterThan(0.35);
+    expect(positivesRate).toBeGreaterThanOrEqual(0.6);
   });
 
   it('should have decent negative rate', async () => {
     const negativesRate = getNegativeRate(results);
 
-    expect(negativesRate).toBeGreaterThan(0.98);
+    expect(negativesRate).toBeGreaterThanOrEqual(0.95);
   });
 });
