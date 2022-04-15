@@ -1,11 +1,12 @@
 const fs = require('fs');
 
+const { stringify } = require('csv-stringify');
+
 const { optimizeText } = require('ukrainian-ml-optimizer');
+// const optimizeText = (text) => text;
 
 const truePositives = require('./2-tensor/tensor-true-positives.json');
 const trueNegative = require('./2-tensor/tensor-true-negatives.json');
-
-const csvFileRows = ['commenttext,spam'];
 
 function shuffle(array) {
   let currentIndex = array.length,  randomIndex;
@@ -25,11 +26,13 @@ function shuffle(array) {
   return array;
 }
 
-const truePositivesRows = truePositives.map(optimizeText).map((item) => `${item},true`);
-const trueNegativeRows = trueNegative.map(optimizeText).map((item) => `${item},false`);
+const truePositivesRows = truePositives.map(optimizeText).map((commenttext) => ({ commenttext, spam: "true" }));
+const trueNegativeRows = trueNegative.map(optimizeText).map((commenttext) => ({ commenttext, spam: "false" }));
+
+stringify( shuffle([...truePositivesRows, ...trueNegativeRows]), { header: true, columns: { commenttext: 'commenttext', spam: 'spam'  } }, (result, output) => {
+  fs.writeFileSync('./1-3-temp/tensor-csv-dataset.csv', output);
+})
 
 const wordsCount = [...truePositivesRows, ...trueNegativeRows].map((word) => word.split(' ').length).sort((a, b) => b - a);
-const words = [...csvFileRows, ...shuffle([...truePositivesRows, ...trueNegativeRows])]
 
 fs.writeFileSync('./1-3-temp/tensor-csv-dataset.stats.txt', wordsCount.join('\n'));
-fs.writeFileSync('./1-3-temp/tensor-csv-dataset.csv', words.join('\n'));

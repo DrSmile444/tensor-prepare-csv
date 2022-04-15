@@ -2,6 +2,8 @@ const fs = require('fs');
 
 const Papa = require('papaparse');
 
+const { optimizeText } = require('ukrainian-ml-optimizer');
+
 const { TensorService } = require('./tensor.service')
 
 const unitTestsFile = fs.readFileSync('./1-3-temp/unit-tests.csv').toString();
@@ -12,7 +14,7 @@ const file = Papa.parse(parseCsv, {
   skipEmptyLines: true,
 });
 
-const spamRate = 0.80;
+const spamRate = 0.85;
 
 /**
  * @type {TensorService}
@@ -38,11 +40,15 @@ describe('Dataset test', () => {
       return {
         text,
         isRealSpam: isRealSpam === '1',
-        tensor: await tensorService.predict(text),
+        tensor: await tensorService.predict(optimizeText(text)),
       }
     });
 
     results = await Promise.all(resultsPromises);
+
+    const missMatch = results.filter((item) => item.isRealSpam !== item.tensor.isSpam)
+
+    fs.writeFileSync('./1-3-temp/result.json', JSON.stringify(missMatch, null, 2));
 
     const positivesRate = getPositiveRate(results);
     const negativesRate = getNegativeRate(results);
@@ -60,5 +66,13 @@ describe('Dataset test', () => {
     const negativesRate = getNegativeRate(results);
 
     expect(negativesRate).toBeGreaterThanOrEqual(0.95);
+  });
+
+  it('should not ban empty message', async () => {
+    const emptyMessage = '🇺🇦😝';
+
+    const result = await tensorService.predict(emptyMessage);
+
+    expect(result.spamRate).toBeLessThanOrEqual(0.7);
   });
 });
