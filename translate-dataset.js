@@ -29,7 +29,7 @@ const selectors = {
   input:
     '[accept="application/pdf, application/vnd.openxmlformats-officedocument.presentationml.presentation, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.openxmlformats-officedocument.wordprocessingml.document, .pdf, .pptx, .xlsx, .docx"]',
   uploadButton:
-    "#yDmH0d > c-wiz > div > div.WFnNle > c-wiz > div.R5HjH > c-wiz > div.oLbzv > c-wiz > div > div:nth-child(1) > div > div.ld4Jde > div > button > span[jsname]",
+    "#yDmH0d > c-wiz > div > div.WFnNle > c-wiz > div.R5HjH > c-wiz > div.oLbzv > c-wiz > div > div:nth-child(1) > div > div.ld4Jde > div > div > button > span[jsname]",
   downloadButtonReady:
     "#yDmH0d > c-wiz > div > div.WFnNle > c-wiz > div.R5HjH > c-wiz > div.oLbzv > c-wiz > div > div:nth-child(1) > div > div.ld4Jde > div > button:nth-child(2)[style]",
   downloadButton:
