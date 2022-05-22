@@ -33,6 +33,8 @@ stringify( shuffle([...truePositivesRows, ...trueNegativeRows]), { header: true,
   fs.writeFileSync('./1-3-temp/tensor-csv-dataset.csv', output);
 })
 
+fs.writeFileSync('./1-3-temp/tensor-csv-dataset.json', JSON.stringify(shuffle([...truePositivesRows, ...trueNegativeRows])))
+
 const wordsCount = [...truePositivesRows, ...trueNegativeRows].map((word) => word.commenttext.split(' ').length).sort((a, b) => b - a);
 
 fs.writeFileSync('./1-3-temp/tensor-csv-dataset.stats.txt', wordsCount.join('\n'));

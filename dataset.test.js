@@ -6,13 +6,13 @@ const { optimizeText } = require('ukrainian-ml-optimizer');
 
 const { TensorService } = require('./tensor.service')
 
-const unitTestsFile = fs.readFileSync('./1-3-temp/unit-tests.csv').toString();
-const parseCsv = 'text\tisRealSpam\n' + unitTestsFile;
+const unitTestsFile = fs.readFileSync('./1-3-temp/ai-spam-detect-test-phrases - Sheet1.csv').toString();
 
-const file = Papa.parse(parseCsv, {
-  header: true,
-  skipEmptyLines: true,
-});
+const parseResult = Papa.parse(unitTestsFile, { skipEmptyLines: true });
+const file = parseResult
+  .data
+  .slice(2)
+  .map((row) => ({ text: row[0], isRealSpam: row[8] === '1' }));
 
 const spamRate = 0.85;
 
@@ -36,10 +36,10 @@ describe('Dataset test', () => {
   beforeAll(async () => {
     await tensorService.loadModel();
 
-    const resultsPromises = file.data.map(async ({ text, isRealSpam }) => {
+    const resultsPromises = file.map(async ({ text, isRealSpam }) => {
       return {
         text,
-        isRealSpam: isRealSpam === '1',
+        isRealSpam,
         tensor: await tensorService.predict(optimizeText(text)),
       }
     });
