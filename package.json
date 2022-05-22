@@ -40,6 +40,7 @@
     "queue": "^6.0.2",
     "string-similarity": "^4.0.4",
     "typed-dotenv": "^10.0.1",
-    "ukrainian-ml-optimizer": "file:../ukrainian-ml-optimizer"
+    "ukrainian-ml-optimizer": "file:../ukrainian-ml-optimizer",
+    "worker-farm": "^1.7.0"
   }
 }
