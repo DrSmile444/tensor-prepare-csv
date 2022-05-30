@@ -4,6 +4,8 @@ const queue = require('queue');
 const workerFarm = require('worker-farm');
 // const { Worker } = require('worker_threads');
 
+const [,,type] = process.argv;
+
 const workers = workerFarm(require.resolve('./remove-similar-logic.js'));
 
 const datasetTest = require('./2-tensor/tensor-test.json');
@@ -75,22 +77,30 @@ const removeSimilar = async (array) => {
   });
 };
 
-const processResult = (array) => {
-  return array.filter((item) => item.unique).map((item) => item.item);
-}
-
 (async() => {
-  // const newDatasetPositives = processResult(await removeSimilar(datasetPositives));
-  // const newDatasetPositives = await removeSimilar(datasetPositives);
-  // fs.writeFileSync('./2-tensor/tensor-true-positives-optimized.json', JSON.stringify(newDatasetPositives, null ,2));
+  switch (type) {
+    case 'positives': {
+      const newDatasetPositives = await removeSimilar(datasetPositives);
+      fs.writeFileSync('./2-tensor/tensor-true-positives-optimized.json', JSON.stringify(newDatasetPositives, null ,2));
+      break;
+    }
 
-  // const newDatasetNegatives = processResult(await removeSimilar(datasetNegatives));
-  const newDatasetNegatives = await removeSimilar(datasetNegatives);
-  fs.writeFileSync('./2-tensor/tensor-true-negatives-optimized.json', JSON.stringify(newDatasetNegatives, null ,2));
+    case 'negatives': {
+      const newDatasetNegatives = await removeSimilar(datasetNegatives);
+      fs.writeFileSync('./2-tensor/tensor-true-negatives-optimized.json', JSON.stringify(newDatasetNegatives, null ,2));
+      break;
+    }
 
-  // const newDatasetTest = await removeSimilar(datasetTest);
-  // fs.writeFileSync('./2-tensor/tensor-test-optimized.json', JSON.stringify(newDatasetTest, null ,2));
+    case 'test': {
+      const newDatasetTest = await removeSimilar(datasetTest);
+      fs.writeFileSync('./2-tensor/tensor-test-optimized.json', JSON.stringify(newDatasetTest, null ,2));
+      break;
+    }
 
-  console.log('File wrote');
+    default:
+      throw new Error('Wrong or no type specified');
+  }
+
+  console.info('File wrote');
 })();
 
