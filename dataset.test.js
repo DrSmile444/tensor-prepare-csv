@@ -4,7 +4,8 @@ const Papa = require('papaparse');
 
 const { optimizeText } = require('ukrainian-ml-optimizer');
 
-const { TensorService } = require('./tensor.service')
+const { TensorService } = require('./tensor.service');
+const specs = require('./1-3-temp/js_export/specs.json');
 
 const unitTestsFile = fs.readFileSync('./1-3-temp/ai-spam-detect-test-phrases - Sheet1.csv').toString();
 
@@ -53,7 +54,7 @@ describe('Dataset test', () => {
     const positivesRate = getPositiveRate(results);
     const negativesRate = getNegativeRate(results);
 
-    fs.writeFileSync('./1-3-temp/' + new Date().toISOString() + '-values.json', JSON.stringify({ positivesRate, negativesRate }));
+    fs.writeFileSync('./1-3-temp/' + new Date().toISOString() + '-values.json', JSON.stringify({ positivesRate, negativesRate, specs }, null, 2));
   });
 
   it('should have decent positive rate', async () => {

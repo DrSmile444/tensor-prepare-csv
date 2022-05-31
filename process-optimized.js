@@ -7,7 +7,8 @@ const processResult = (array) => {
   return array
     .map(((item) => item[0]))
     .filter((item) => item.unique)
-    .map((item) => item.first);
+    .map((item) => item.first)
+    .filter((item) => item.split(' ').length <= 25);
 }
 
 const newNegatives = processResult(negatives);
