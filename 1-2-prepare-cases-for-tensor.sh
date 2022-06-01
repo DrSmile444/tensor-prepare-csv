@@ -2,9 +2,10 @@
 #node ./create-docx.js
 #node ./translate-dataset.js
 #node ./parse-docx.js
-time node ./remove-similar.js positives
-time node ./remove-similar.js negatives
-#node ./prepare-tensor-csv-dataset.js
+#time node ./remove-similar.js positives
+#time node ./remove-similar.js negatives
+node ./process-optimized.js
+node ./prepare-tensor-csv-dataset.js
 echo ""
 echo "**** 1-2-prepare-cases-for-tensor.sh ****"
 echo ""

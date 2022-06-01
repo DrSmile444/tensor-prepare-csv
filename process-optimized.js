@@ -8,13 +8,22 @@ const processResult = (array) => {
     .map(((item) => item[0]))
     .filter((item) => item.unique)
     .map((item) => item.first)
-    .filter((item) => item.split(' ').length <= 25);
+    .filter((item) => item.split(' ').length <= 25 && item.split(' ').length >= 3);
 }
 
-const newNegatives = processResult(negatives);
-const newPositives = processResult(positives);
+let newNegatives = processResult(negatives);
+let newPositives = processResult(positives);
 
-console.log(negatives, newPositives);
+const shortestDataset = Math.min(newNegatives.length, newPositives.length);
+
+console.log(shortestDataset)
+
+// newNegatives = newNegatives.slice(newNegatives.length - shortestDataset, newNegatives.length - 1);
+// newPositives = newPositives.slice(newPositives.length - shortestDataset, newPositives.length - 1);
+
+console.log(newPositives, newNegatives);
+console.log(newPositives.length);
+console.log(newNegatives.length);
 
 fs.writeFileSync('./2-tensor/tensor-true-negatives-optimized-done.json', JSON.stringify(newNegatives, null, 2));
 fs.writeFileSync('./2-tensor/tensor-true-positives-optimized-done.json', JSON.stringify(newPositives, null, 2));
