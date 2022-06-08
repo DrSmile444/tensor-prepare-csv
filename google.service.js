@@ -25,15 +25,16 @@ class GoogleService {
   /**
    * @param {string} spreadsheetId
    * @param {string} sheetName
+   * @param {string} [range]
    *
    * @returns {Promise<Record<string, any>[] | null>}
    * */
-  async getSheet(spreadsheetId, sheetName) {
+  async getSheet(spreadsheetId, sheetName, range) {
     try {
       return await sheets.spreadsheets.values
         .get({
           spreadsheetId,
-          range: `${sheetName}!${RANGE}`,
+          range: `${sheetName}!${range || RANGE}`,
         })
         .then((response) => {
           const shortRange = response.data.range.replace(sheetName, '').replace('!', '');
