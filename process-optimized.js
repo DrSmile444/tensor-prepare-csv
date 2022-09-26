@@ -1,13 +1,15 @@
 const fs = require('fs');
 
-const negatives = require('./2-tensor/tensor-true-negatives-optimized.json');
-const positives = require('./2-tensor/tensor-true-positives-optimized.json');
+// const negatives = require('./2-tensor/tensor-true-negatives-optimized.json');
+// const positives = require('./2-tensor/tensor-true-positives-optimized.json');
+const negatives = require('./1-cases/true-negatives.json');
+const positives = require('./1-cases/true-positives.json');
 
 const processResult = (array) => {
   return array
-    .map(((item) => item[0]))
-    .filter((item) => item.unique)
-    .map((item) => item.first)
+    // .map(((item) => item[0]))
+    // .filter((item) => item.unique)
+    // .map((item) => item.first)
     .filter((item) => item.split(' ').length <= 25 && item.split(' ').length >= 3);
 }
 
